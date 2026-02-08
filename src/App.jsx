@@ -10,6 +10,8 @@ function App() {
 
     const [catImageUrl, setCatImageUrl] = useState()
 
+    const [firstThreeWords, setFirstThreeWords] = useState()
+
     useEffect(() => {
         fetch(CAT_RANDOM_FACT_ENDPOINT)
             .then(response => response.json())
@@ -18,7 +20,11 @@ function App() {
 
 
     useEffect(() => {
-        fetch("https://cataas.com/cat/says/hello?json=true")
+        if (!catFact) return
+        console.log(`Cat fact is ${catFact}`)
+        setFirstThreeWords(catFact.split(" ").slice(0, 3).join(" "))
+        console.log(`First 3 words are ${firstThreeWords}`)
+        fetch(`https://cataas.com/cat/says/${firstThreeWords}?json=true`)
             .then(response => response.json())
             .then(data => setCatImageUrl(data.url))
         console.log(`hello, the catFact state is ${catImageUrl}`)
