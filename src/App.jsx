@@ -21,13 +21,15 @@ function App() {
 
     useEffect(() => {
         if (!catFact) return
-        console.log(`Cat fact is ${catFact}`)
-        setFirstThreeWords(catFact.split(" ").slice(0, 3).join(" "))
-        console.log(`First 3 words are ${firstThreeWords}`)
-        fetch(`https://cataas.com/cat/says/${firstThreeWords}?json=true`)
+
+
+        const firstWords = catFact.split(" ").slice(0, 3).join(" ")
+        setFirstThreeWords(firstWords)
+
+
+        fetch(`https://cataas.com/cat/says/${firstWords}?json=true`)
             .then(response => response.json())
             .then(data => setCatImageUrl(data.url))
-        console.log(`hello, the catFact state is ${catImageUrl}`)
     }, [catFact])
 
     return (
